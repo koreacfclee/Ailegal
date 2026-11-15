@@ -191,6 +191,15 @@ strong { font-weight: 700; }
 
 /* ---------- Hero ---------- */
 .hero { position: relative; padding: var(--s7) 0 var(--s7); overflow: hidden; }
+/* Photo backdrop: 75% black overlay, fading into the page navy toward the bottom */
+.hero::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 900px; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(6,17,31,0) 35%, rgba(6,17,31,.7) 70%, var(--navy-950) 100%),
+    linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)),
+    url("../img/hero-bg.jpg") center 40% / cover no-repeat;
+}
+@media (max-width: 560px) { .hero::before { height: 760px; } }
 .hero::after {
   content: ""; position: absolute; left: 50%; top: 52%; width: 900px; height: 520px; transform: translateX(-50%);
   background: radial-gradient(closest-side, rgba(20, 201, 221, .14), transparent);
