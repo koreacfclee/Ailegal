@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Legal Tech Architect | 판례 기반 증거능력 1분 진단</title>
+  <meta name="description" content="카카오톡 대화, 녹음 파일, 계약서가 재판에서 증거로 인정될 수 있을지 법원 판례 데이터를 바탕으로 1분 안에 진단합니다.">
+  <meta name="theme-color" content="#06111F">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Legal Tech Architect | 판례 기반 증거능력 1분 진단">
+  <meta property="og:description" content="그 증거, 법정에서도 증거가 될까요? 판례 데이터로 1분 안에 확인하세요.">
+  <link rel="icon" href="assets/img/mark.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Icon sprite (Lucide-style, 2px stroke) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+      <symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-warn" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+      <symbol id="i-risk" viewBox="0 0 24 24"><path d="M2.59 16.73A2 2 0 0 1 2 15.31V8.69a2 2 0 0 1 .59-1.42l4.68-4.68A2 2 0 0 1 8.69 2h6.62a2 2 0 0 1 1.42.59l4.68 4.68A2 2 0 0 1 22 8.69v6.62a2 2 0 0 1-.59 1.42l-4.68 4.68a2 2 0 0 1-1.42.59H8.69a2 2 0 0 1-1.42-.59z"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+      <symbol id="i-scale" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></symbol>
+      <symbol id="i-building" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <!-- ============ Header ============ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Legal Tech Architect 처음으로">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M4 11.5 16 4.5l12 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="6.5" y="14" width="3" height="12" rx=".6" fill="currentColor"/>
+          <rect x="14.5" y="14" width="3" height="12" rx=".6" fill="currentColor"/>
+          <rect x="22.5" y="14" width="3" height="12" rx=".6" fill="currentColor"/>
+          <path d="M4 28.5h24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          <rect class="brand-scan" x="2" y="19" width="28" height="1.8" rx=".9"/>
+        </svg>
+        <span class="brand-name">Legal Tech Architect</span>
+      </a>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="주 메뉴">
+        <ul>
+          <li><a href="#problem">문제</a></li>
+          <li><a href="#how">진단 방식</a></li>
+          <li><a href="#report">진단 항목</a></li>
+          <li><a href="#faq">자주 묻는 질문</a></li>
+        </ul>
+      </nav>
+
+      <a class="btn btn-primary btn-sm header-cta" href="#diagnose">진단 시작</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="메뉴 열기">
+        <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ Hero ============ -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="blueprint" aria-hidden="true"></div>
+      <div class="container hero-inner">
+        <h1 id="hero-title">그 증거, 법정에서도<br>증거가 될까요?</h1>
+        <p class="hero-lead">카카오톡 대화, 녹음 파일, 계약서. 지금 가진 자료가 재판에서 증거로 인정될 수 있는지 법원 판례 데이터를 바탕으로 1분 안에 진단해 드립니다.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="#diagnose">1분 진단 시작하기</a>
+          <a class="btn btn-ghost btn-lg" href="#how">진단 방식 살펴보기</a>
+        </div>
+        <p class="hero-note">진단 결과는 참고 정보이며 법률 자문을 대신하지 않습니다.</p>
+
+        <!-- Interactive demo console -->
+        <div class="console" id="diagnose" role="region" aria-labelledby="console-title" tabindex="-1">
+          <div class="console-bar">
+            <span class="console-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <p id="console-title">증거능력 진단</p>
+            <span class="console-mode">체험 모드</span>
+          </div>
+
+          <div class="console-body">
+            <form class="console-form" id="demo-form" novalidate>
+              <fieldset>
+                <legend>어떤 증거를 갖고 계신가요?</legend>
+                <div class="choice-row">
+                  <label class="choice">
+                    <input type="radio" name="type" value="voice" checked>
+                    <span><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>녹음 파일</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="type" value="chat">
+                    <span><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>카카오톡 대화</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="type" value="contract">
+                    <span><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>계약서</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend id="q-legend">녹음할 때 본인도 대화에 참여하고 있었나요?</legend>
+                <div class="answer-list">
+                  <label class="answer">
+                    <input type="radio" name="answer" value="yes" checked>
+                    <span id="a-yes">네, 제가 대화 당사자였어요</span>
+                  </label>
+                  <label class="answer">
+                    <input type="radio" name="answer" value="no">
+                    <span id="a-no">아니요, 다른 사람들끼리 나눈 대화예요</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <button class="btn btn-primary btn-block" type="submit" id="run-btn">진단 시작</button>
+              <p class="console-note">실제 서비스에서는 파일을 올리고 몇 가지 질문에 답하면 약 1분 안에 리포트가 완성됩니다.</p>
+            </form>
+
+            <div class="console-output">
+              <div class="stage" id="stage">
+                <div class="preview" id="preview"></div>
+                <div class="scanline" aria-hidden="true"></div>
+              </div>
+
+              <ol class="scan-steps" id="scan-steps" hidden>
+                <li>파일 형식과 메타데이터 확인</li>
+                <li>수집 경위 검토</li>
+                <li>유사 쟁점 판례 대조</li>
+                <li>진단 리포트 작성</li>
+              </ol>
+
+              <div class="result" id="result" hidden>
+                <div class="result-head">
+                  <div class="gauge" aria-hidden="true">
+                    <svg viewBox="0 0 120 120">
+                      <circle class="gauge-track" cx="60" cy="60" r="50"/>
+                      <circle class="gauge-value" id="gauge-value" cx="60" cy="60" r="50"/>
+                    </svg>
+                    <span class="gauge-num" id="gauge-num">0</span>
+                  </div>
+                  <div>
+                    <p class="result-caption">증거 활용 가능성</p>
+                    <h3 class="result-verdict" id="result-verdict" tabindex="-1"></h3>
+                    <p class="result-score-text visually-hidden" id="result-score-text"></p>
+                  </div>
+                </div>
+                <ul class="findings" id="findings"></ul>
+                <div class="next-steps">
+                  <h4>지금 해 두면 좋은 일</h4>
+                  <ul id="next-steps"></ul>
+                </div>
+                <p class="result-disclaimer">체험용 예시 결과입니다. 실제 진단은 업로드한 파일과 추가 질문을 함께 분석하며, 최종 판단은 변호사와 상담하시기 바랍니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Evidence types ============ -->
+    <section class="types" aria-labelledby="types-title">
+      <div class="container">
+        <h2 id="types-title" class="types-title">분쟁에서 가장 자주 쓰이는 세 가지 증거를 진단합니다</h2>
+        <ul class="type-list">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg><strong>메신저 대화</strong><span>카카오톡, 문자, DM</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><strong>녹음 파일</strong><span>통화 녹음, 대면 대화</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><strong>계약서·각서</strong><span>차용증, 합의서, 확인서</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ Problem ============ -->
+    <section class="problem" id="problem" aria-labelledby="problem-title">
+      <div class="container problem-grid">
+        <div class="problem-intro">
+          <h2 id="problem-title">증거가 있어도<br>재판에서 지는 이유</h2>
+          <p>억울한 사정을 입증할 자료를 모아 두었더라도, 법원이 증거로 받아 주지 않거나 믿기 어렵다고 판단하면 소용이 없습니다. 그런데 많은 분들이 이 사실을 소송이 시작된 뒤에야 알게 됩니다.</p>
+          <p>증거가 법정에서 힘을 가지려면 <strong>적법하게 수집되었는지</strong>, <strong>원본과 같은지</strong>, <strong>편집되지 않았는지</strong>를 함께 따져야 합니다.</p>
+        </div>
+
+        <ul class="pitfalls">
+          <li class="pitfall">
+            <span class="pitfall-type"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>녹음 파일</span>
+            <h3>다른 사람들끼리 나눈 대화를 몰래 녹음했어요</h3>
+            <p>대화에 참여하지 않은 사람이 타인 간의 대화를 녹음하면 통신비밀보호법 위반이 될 수 있고, 재판에서 증거로 사용할 수 없습니다.</p>
+            <p class="pitfall-flag"><svg class="icon" aria-hidden="true"><use href="#i-risk"/></svg>증거로 쓸 수 없고, 처벌 위험까지 있습니다</p>
+          </li>
+          <li class="pitfall">
+            <span class="pitfall-type"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>메신저 대화</span>
+            <h3>카카오톡 대화를 캡처 이미지로만 갖고 있어요</h3>
+            <p>상대방이 캡처가 원본과 다르다거나 앞뒤 대화가 잘렸다고 다투면, 그 내용이 사실이라는 점을 따로 입증해야 합니다.</p>
+            <p class="pitfall-flag is-warn"><svg class="icon" aria-hidden="true"><use href="#i-warn"/></svg>증명력이 약해질 수 있습니다</p>
+          </li>
+          <li class="pitfall">
+            <span class="pitfall-type"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>녹음 파일</span>
+            <h3>필요한 부분만 남기고 녹음을 잘라 냈어요</h3>
+            <p>편집 흔적이 확인되면 잘라 낸 부분뿐 아니라 남은 녹음 전체의 신빙성까지 의심받을 수 있습니다.</p>
+            <p class="pitfall-flag is-warn"><svg class="icon" aria-hidden="true"><use href="#i-warn"/></svg>전체 녹음의 신뢰도가 흔들립니다</p>
+          </li>
+          <li class="pitfall">
+            <span class="pitfall-type"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>계약서·각서</span>
+            <h3>서명 없이 말이나 문자로만 약속했어요</h3>
+            <p>서명이나 날인이 없으면 상대방이 약속 자체를 부인할 때, 그 내용에 동의했다는 사실을 다른 자료로 입증해야 합니다.</p>
+            <p class="pitfall-flag is-warn"><svg class="icon" aria-hidden="true"><use href="#i-warn"/></svg>계약이 성립했는지부터 다툴 수 있습니다</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ How it works (1-minute timeline) ============ -->
+    <section class="how" id="how" aria-labelledby="how-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="how-title">소송을 시작하기 전,<br>1분이면 확인할 수 있습니다</h2>
+          <p>변호사를 찾아가기 전에 내 증거의 상태부터 파악하세요. 무엇이 충분하고 무엇을 보완해야 하는지 알면 상담도, 준비도 훨씬 빨라집니다.</p>
+        </div>
+
+        <ol class="timeline">
+          <li>
+            <time datetime="PT0S">0:00</time>
+            <h3>증거 올리기</h3>
+            <p>진단받을 대화 기록, 녹음 파일, 계약서를 올립니다.</p>
+          </li>
+          <li>
+            <time datetime="PT15S">0:15</time>
+            <h3>상황 질문에 답하기</h3>
+            <p>녹음 당시 대화에 참여했는지, 원본을 보관하고 있는지처럼 증거능력을 좌우하는 질문 몇 가지에 답합니다.</p>
+          </li>
+          <li>
+            <time datetime="PT40S">0:40</time>
+            <h3>판례 데이터 대조</h3>
+            <p>비슷한 쟁점을 다룬 판례에서 법원이 어떤 증거를 인정하고 배척했는지 분석합니다.</p>
+          </li>
+          <li>
+            <time datetime="PT1M">1:00</time>
+            <h3>진단 리포트 확인</h3>
+            <p>증거능력, 증명력, 보완 방법을 한눈에 볼 수 있는 리포트로 정리해 드립니다.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ Report ============ -->
+    <section class="report" id="report" aria-labelledby="report-title">
+      <div class="container report-grid">
+        <div class="report-copy">
+          <h2 id="report-title">법원이 따지는 기준 그대로<br>증거를 점검합니다</h2>
+          <p>진단 리포트는 법원이 증거를 판단할 때 실제로 살피는 기준에 맞춰 구성됩니다.</p>
+
+          <dl class="criteria">
+            <div>
+              <dt>적법성</dt>
+              <dd>증거를 수집한 방법이 법을 어기지 않았는지 확인합니다. 위법하게 수집한 증거는 내용과 관계없이 배척될 수 있습니다.</dd>
+            </div>
+            <div>
+              <dt>동일성·무결성</dt>
+              <dd>제출할 자료가 원본과 같고 편집되지 않았는지, 이를 입증할 수단이 있는지 살핍니다.</dd>
+            </div>
+            <div>
+              <dt>진정 성립</dt>
+              <dd>문서나 메시지를 실제로 그 사람이 작성했는지, 서명과 날인이 있는지 검토합니다.</dd>
+            </div>
+            <div>
+              <dt>증명력</dt>
+              <dd>증거가 주장하려는 사실을 얼마나 직접적으로 뒷받침하는지 평가합니다.</dd>
+            </div>
+            <div>
+              <dt>보완 방법</dt>
+              <dd>부족한 부분을 채울 수 있는 추가 증거와 보존 방법을 구체적으로 안내합니다.</dd>
+            </div>
+          </dl>
+        </div>
+
+        <figure class="paper" aria-labelledby="paper-caption">
+          <div class="paper-head">
+            <div>
+              <p class="paper-kind">증거능력 진단 리포트</p>
+              <p class="paper-file">녹음_계약금반환_대화.m4a</p>
+            </div>
+            <span class="paper-tag">예시</span>
+          </div>
+
+          <div class="paper-score">
+            <div class="meter" role="img" aria-label="증거 활용 가능성 100점 중 82점">
+              <span style="--v:82%"></span>
+            </div>
+            <p><strong>82</strong>/100 증거로 쓸 수 있을 가능성이 높음</p>
+          </div>
+
+          <ul class="paper-rows">
+            <li><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-ok"/></svg>충족</span>적법성: 대화 당사자가 직접 녹음함</li>
+            <li><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-ok"/></svg>충족</span>동일성: 원본 파일과 녹음 기기 보관 중</li>
+            <li><span class="status warn"><svg class="icon" aria-hidden="true"><use href="#i-warn"/></svg>보완</span>증명력: 금액이 언급된 구간이 짧음</li>
+          </ul>
+
+          <div class="paper-next">
+            <p>권장 조치</p>
+            <ul>
+              <li>원본 파일을 수정하지 말고 그대로 보관하기</li>
+              <li>계좌 이체 내역을 함께 제출하기</li>
+            </ul>
+          </div>
+          <figcaption id="paper-caption" class="visually-hidden">진단 리포트 예시 화면</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ Audience ============ -->
+    <section class="audience" aria-labelledby="audience-title">
+      <div class="container">
+        <h2 id="audience-title" class="section-title-center">증거를 검토해야 하는 모든 분께</h2>
+        <ul class="audience-list">
+          <li>
+            <svg class="icon icon-lg" aria-hidden="true"><use href="#i-user"/></svg>
+            <h3>분쟁을 앞둔 개인</h3>
+            <p>임금 체불, 전세금 반환, 빌려준 돈, 직장 내 괴롭힘처럼 혼자 증거를 모아야 하는 상황에서 지금 가진 자료로 충분한지 먼저 확인할 수 있습니다.</p>
+          </li>
+          <li>
+            <svg class="icon icon-lg" aria-hidden="true"><use href="#i-scale"/></svg>
+            <h3>변호사·법률사무소</h3>
+            <p>의뢰인이 가져온 자료를 1차로 분류하고 쟁점이 될 증거를 빠르게 추려, 상담과 사건 검토에 드는 시간을 줄일 수 있습니다.</p>
+          </li>
+          <li>
+            <svg class="icon icon-lg" aria-hidden="true"><use href="#i-building"/></svg>
+            <h3>기업 인사·노무 담당자</h3>
+            <p>사내 신고나 징계 절차에서 제출된 녹음과 메시지를 근거로 삼아도 되는지, 절차를 진행하기 전에 점검할 수 있습니다.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="container faq-inner">
+        <h2 id="faq-title">자주 묻는 질문</h2>
+        <div class="faq-list">
+          <details>
+            <summary>진단 결과를 법률 자문으로 봐도 되나요?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <p>아니요. 진단 결과는 판례 데이터를 바탕으로 증거의 상태를 파악하도록 돕는 참고 정보입니다. 소송 제기나 증거 제출처럼 중요한 결정을 내리기 전에는 반드시 변호사와 상담하시기 바랍니다.</p>
+          </details>
+          <details>
+            <summary>어떤 증거를 진단할 수 있나요?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <p>카카오톡 등 메신저 대화, 통화나 대면 대화를 녹음한 파일, 계약서와 각서 같은 문서를 진단할 수 있습니다.</p>
+          </details>
+          <details>
+            <summary>정말 1분이면 끝나나요?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <p>대부분의 진단은 질문에 답하는 시간을 포함해 1분 안팎으로 끝납니다. 다만 녹음 길이가 길거나 여러 파일을 한꺼번에 올리면 조금 더 걸릴 수 있습니다.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Final CTA ============ -->
+    <section class="final-cta" aria-labelledby="final-title">
+      <div class="blueprint" aria-hidden="true"></div>
+      <div class="container final-inner">
+        <h2 id="final-title">소송을 준비하기 전에,<br>증거부터 확인하세요</h2>
+        <p>지금 가진 자료가 법정에서 힘을 가질 수 있는지 1분이면 알 수 있습니다.</p>
+        <a class="btn btn-primary btn-lg" href="#diagnose">1분 진단 시작하기</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-name">Legal Tech Architect</p>
+          <p>판례 데이터로 증거의 힘을 진단합니다.</p>
+        </div>
+        <nav aria-label="바닥글 메뉴">
+          <ul class="footer-links">
+            <li><a href="#problem">문제</a></li>
+            <li><a href="#how">진단 방식</a></li>
+            <li><a href="#report">진단 항목</a></li>
+              <li><a href="#faq">자주 묻는 질문</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="footer-legal">Legal Tech Architect는 법률 사무를 대리하지 않으며, 진단 결과는 법률 자문을 대신하지 않습니다. 구체적인 사건은 변호사와 상담하시기 바랍니다.</p>
+      <p class="footer-copy">© 2026 Legal Tech Architect</p>
+    </div>
+    <p class="footer-wordmark" aria-hidden="true">Legal Tech Architect</p>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
